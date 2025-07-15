@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../AppIcon';
 import Button from './Button';
 import Input from './Input';
+import ThemeSwitcher from './ThemeSwitcher';
 
 const Header = () => {
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);
@@ -84,6 +85,8 @@ const Header = () => {
         </div>
         {/* Right Section */}
         <div className="flex items-center space-x-2">
+          {/* Theme Switcher */}
+          <ThemeSwitcher />
           {/* Mobile Menu Button */}
           <Button
             variant="ghost"

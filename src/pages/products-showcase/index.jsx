@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '../../components/ui/Header';
-import Sidebar from '../../components/ui/Sidebar';
+import ProfileSidebar from '../../components/ui/ProfileSidebar';
 import NavigationBreadcrumb from '../../components/ui/NavigationBreadcrumb';
 import ProductCard from './components/ProductCard';
 import ProductDetailModal from './components/ProductDetailModal';
@@ -25,6 +25,7 @@ const ProductsShowcase = () => {
   });
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('grid'); // grid or list
+  const [showProfile, setShowProfile] = useState(false);
 
   // Mock products data
   const mockProducts = [
@@ -281,9 +282,30 @@ const ProductsShowcase = () => {
           <title>Products Showcase - LinkedBoard Pro</title>
           <meta name="description" content="Discover our comprehensive product portfolio with detailed information and user feedback capabilities." />
         </Helmet>
-        <Header />
-        <Sidebar />
-        <main className="lg:ml-80 pt-16">
+        <Header>
+          <button
+            className="fixed top-4 right-8 z-50 bg-primary rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-white"
+            onClick={() => setShowProfile(true)}
+            title="View Profile"
+          >
+            <Icon name="User" size={28} color="white" />
+          </button>
+        </Header>
+        {showProfile && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+            <div className="bg-white dark:bg-background rounded-lg shadow-2xl max-w-md w-full relative">
+              <button
+                className="absolute top-2 right-2 text-xl p-2 rounded-full hover:bg-muted"
+                onClick={() => setShowProfile(false)}
+                title="Close"
+              >
+                <Icon name="X" size={20} />
+              </button>
+              <ProfileSidebar className="rounded-lg shadow-none border-none" />
+            </div>
+          </div>
+        )}
+        <main className="pt-16">
           <div className="p-6">
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
@@ -304,15 +326,33 @@ const ProductsShowcase = () => {
         <meta name="description" content="Discover our comprehensive product portfolio with detailed information and user feedback capabilities." />
         <meta name="keywords" content="products, software, tools, productivity, design, development, analytics" />
       </Helmet>
-
-      <Header />
-      <Sidebar />
-
-      <main className="lg:ml-80 pt-16">
-        <div className="p-6 space-y-6">
+      <Header>
+        <button
+          className="fixed top-4 right-8 z-50 bg-primary rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-white"
+          onClick={() => setShowProfile(true)}
+          title="View Profile"
+        >
+          <Icon name="User" size={28} color="white" />
+        </button>
+      </Header>
+      {showProfile && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white dark:bg-background rounded-lg shadow-2xl max-w-md w-full relative">
+            <button
+              className="absolute top-2 right-2 text-xl p-2 rounded-full hover:bg-muted"
+              onClick={() => setShowProfile(false)}
+              title="Close"
+            >
+              <Icon name="X" size={20} />
+            </button>
+            <ProfileSidebar className="rounded-lg shadow-none border-none" />
+          </div>
+        </div>
+      )}
+      <main className="pt-16">
+        <div className="p-6 space-y-6 max-w-5xl mx-auto">
           {/* Breadcrumb */}
           <NavigationBreadcrumb />
-
           {/* Page Header */}
           <div className="bg-card border border-border rounded-lg shadow-card p-6">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
@@ -348,7 +388,6 @@ const ProductsShowcase = () => {
               </div>
             </div>
           </div>
-
           {/* Filters */}
           <ProductFilters
             filters={filters}
@@ -359,7 +398,6 @@ const ProductsShowcase = () => {
             totalProducts={products.length}
             filteredCount={filteredProducts.length}
           />
-
           {/* Products Grid */}
           <div className="space-y-6">
             {filteredProducts.length === 0 ? (
@@ -402,12 +440,10 @@ const ProductsShowcase = () => {
               </div>
             )}
           </div>
-
           {/* Feedback System */}
           <FeedbackSystem />
         </div>
       </main>
-
       {/* Product Detail Modal */}
       <ProductDetailModal
         product={selectedProduct}

@@ -42,33 +42,6 @@ const TrendingSidebar = () => {
     }
   ];
 
-  const suggestedConnections = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      title: "Product Designer",
-      company: "Google",
-      mutualConnections: 12,
-      avatar: "https://randomuser.me/api/portraits/women/32.jpg"
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      title: "Engineering Manager",
-      company: "Meta",
-      mutualConnections: 8,
-      avatar: "https://randomuser.me/api/portraits/men/45.jpg"
-    },
-    {
-      id: 3,
-      name: "Emily Rodriguez",
-      title: "Data Scientist",
-      company: "Netflix",
-      mutualConnections: 15,
-      avatar: "https://randomuser.me/api/portraits/women/67.jpg"
-    }
-  ];
-
   const featuredProducts = [
     {
       id: 1,
@@ -139,103 +112,6 @@ const TrendingSidebar = () => {
           </Button>
         </div>
       </div>
-
-      {/* Suggested Connections */}
-      <div className="bg-card border border-border rounded-lg shadow-card">
-        <div className="p-4 border-b border-border">
-          <h3 className="font-semibold text-foreground">People you may know</h3>
-        </div>
-        <div className="p-4 space-y-4">
-          {suggestedConnections.map((person) => (
-            <div key={person.id} className="flex items-start space-x-3">
-              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                <Icon name="User" size={24} color="white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-medium text-foreground truncate">{person.name}</h4>
-                <p className="text-xs text-text-secondary truncate">{person.title} at {person.company}</p>
-                <p className="text-xs text-text-secondary mt-1">{person.mutualConnections} mutual connections</p>
-                <div className="flex items-center space-x-2 mt-2">
-                  <Button variant="outline" size="xs" iconName="UserPlus" iconPosition="left" iconSize={12}>
-                    Connect
-                  </Button>
-                  <Button variant="ghost" size="xs">
-                    Dismiss
-                  </Button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="p-4 border-t border-border">
-          <Link to="/connection-network-tree">
-            <Button variant="ghost" className="w-full text-sm" iconName="Users" iconPosition="left" iconSize={14}>
-              View all suggestions
-            </Button>
-          </Link>
-        </div>
-      </div>
-
-      {/* Featured Products */}
-      <div className="bg-card border border-border rounded-lg shadow-card">
-        <div className="p-4 border-b border-border">
-          <h3 className="font-semibold text-foreground">Featured Products</h3>
-        </div>
-        <div className="p-4 space-y-4">
-          {featuredProducts.map((product) => (
-            <div key={product.id} className="border border-border rounded-lg p-3 hover:bg-muted/30 transition-micro">
-              <div className="flex items-start justify-between mb-2">
-                <h4 className="text-sm font-medium text-foreground">{product.name}</h4>
-                <div className="flex items-center space-x-1">
-                  <Icon name="Star" size={12} className="text-warning fill-current" />
-                  <span className="text-xs text-text-secondary">{product.rating}</span>
-                </div>
-              </div>
-              <p className="text-xs text-text-secondary mb-2 line-clamp-2">{product.description}</p>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs bg-muted px-2 py-1 rounded-full text-text-secondary">{product.category}</span>
-                  <span className="text-xs text-text-secondary">{product.users} users</span>
-                </div>
-                <Button variant="ghost" size="xs" iconName="ExternalLink" iconPosition="right" iconSize={12}>
-                  View
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="p-4 border-t border-border">
-          <Link to="/products-showcase">
-            <Button variant="ghost" className="w-full text-sm" iconName="Package" iconPosition="left" iconSize={14}>
-              Explore all products
-            </Button>
-          </Link>
-        </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="bg-card border border-border rounded-lg shadow-card">
-        <div className="p-4 border-b border-border">
-          <h3 className="font-semibold text-foreground">Quick Actions</h3>
-        </div>
-        <div className="p-4 space-y-2">
-          <Link to="/ideas-whiteboard">
-            <Button variant="ghost" className="w-full justify-start" iconName="Lightbulb" iconPosition="left" iconSize={16}>
-              Create new idea
-            </Button>
-          </Link>
-          <Button variant="ghost" className="w-full justify-start" iconName="Calendar" iconPosition="left" iconSize={16}>
-            Schedule meeting
-          </Button>
-          <Button variant="ghost" className="w-full justify-start" iconName="FileText" iconPosition="left" iconSize={16}>
-            Write article
-          </Button>
-          <Button variant="ghost" className="w-full justify-start" iconName="Users" iconPosition="left" iconSize={16}>
-            Find colleagues
-          </Button>
-        </div>
-      </div>
-
       {/* Footer */}
       <div className="bg-card border border-border rounded-lg shadow-card p-4">
         <div className="text-center">
