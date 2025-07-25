@@ -60,7 +60,7 @@
     --color-text-primary: #1D2129; /* gray-900 */
     --color-text-secondary: #65676B; /* gray-500 */
   }
-
+  
   .dark {
     --color-background: #18191A; /* dark gray */
     --color-foreground: #F3F4F6; /* light gray */

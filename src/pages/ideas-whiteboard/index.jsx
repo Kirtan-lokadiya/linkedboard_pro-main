@@ -137,6 +137,21 @@ const IdeasWhiteboard = () => {
     setCollaborators(mockCollaborators);
     setFilteredNotes(mockNotes);
   }, []);
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedNotes = localStorage.getItem('whiteboard-notes');
+    const savedConnections = localStorage.getItem('whiteboard-connections');
+    if (savedNotes) setNotes(JSON.parse(savedNotes));
+    if (savedConnections) setConnections(JSON.parse(savedConnections));
+  }, []);
+
+  // Save to localStorage on notes/connections change
+  useEffect(() => {
+    localStorage.setItem('whiteboard-notes', JSON.stringify(notes));
+  }, [notes]);
+  useEffect(() => {
+    localStorage.setItem('whiteboard-connections', JSON.stringify(connections));
+  }, [connections]);
 
   // Filter notes based on search query
   useEffect(() => {

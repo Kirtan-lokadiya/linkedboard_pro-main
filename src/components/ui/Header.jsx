@@ -121,14 +121,11 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="p-2">
-                  <button className="w-full text-left px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-micro">
+                  <button className="w-full text-left px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-micro" onClick={() => { setShowProfileMenu(false); navigate('/profile'); }}>
                     View Profile
                   </button>
-                  <button className="w-full text-left px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-micro">
+                  <button className="w-full text-left px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-micro" onClick={() => { setShowProfileMenu(false); navigate('/settings'); }}>
                     Settings
-                  </button>
-                  <button className="w-full text-left px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-micro">
-                    Theme Settings
                   </button>
                   <hr className="my-2 border-border" />
                   <button className="w-full text-left px-3 py-2 text-sm text-destructive hover:bg-destructive/10 rounded-md transition-micro">

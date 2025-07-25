@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
+import { useNavigate } from 'react-router-dom';
 
 const StickyNote = ({ 
   note, 
@@ -16,6 +17,7 @@ const StickyNote = ({
   const [editContent, setEditContent] = useState(note.content);
   const [editTitle, setEditTitle] = useState(note.title);
   const textareaRef = useRef(null);
+  const navigate = useNavigate();
 
   const [{ isDragging }, drag] = useDrag({
     type: 'sticky-note',
@@ -139,6 +141,18 @@ const StickyNote = ({
                 title="Delete note"
               >
                 <Icon name="Trash2" size={12} />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/search?q=${encodeURIComponent(note.title || '')}`);
+                }}
+                className="w-6 h-6 hover:bg-white/50"
+                title="Search this idea"
+              >
+                <Icon name="Globe" size={14} />
               </Button>
             </div>
           )}

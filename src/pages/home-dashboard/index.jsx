@@ -46,12 +46,12 @@ const HomeDashboard = () => {
             <div className="mb-6">
               <NavigationBreadcrumb />
             </div>
-            {/* Center Column - Main Feed */}
+              {/* Center Column - Main Feed */}
             <div>
-              {/* Post Creation */}
-              <PostCreationCard />
-              {/* Feed Container */}
-              <FeedContainer />
+                {/* Post Creation */}
+                <PostCreationCard />
+                {/* Feed Container */}
+                <FeedContainer />
             </div>
           </div>
         </main>

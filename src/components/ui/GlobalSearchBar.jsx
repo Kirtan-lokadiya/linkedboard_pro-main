@@ -11,6 +11,24 @@ const GlobalSearchBar = ({ className = '' }) => {
   const searchRef = useRef(null);
   const navigate = useNavigate();
 
+  // Handle escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        handleBack();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
+
+  const handleBack = () => {
+    setShowSuggestions(false);
+    setSearchQuery('');
+    navigate(-1); // Go back to previous page
+  };
+
   // Mock suggestions data
   const mockSuggestions = [
     { type: 'user', title: 'Sarah Johnson', subtitle: 'Product Designer at Google', icon: 'User' },
@@ -108,20 +126,30 @@ const GlobalSearchBar = ({ className = '' }) => {
   return (
     <div ref={searchRef} className={`relative ${className}`}>
       <form onSubmit={handleSubmit}>
-        <div className="relative">
-          <Icon 
-            name="Search" 
-            size={20} 
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary z-10" 
-          />
-          <Input
-            type="search"
-            placeholder="Search posts, people, ideas, products..."
-            value={searchQuery}
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
-            className="pl-10 pr-4 py-2 w-full border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
+        <div className="relative flex items-center space-x-2">
+          <button
+            type="button"
+            onClick={handleBack}
+            className="p-2 hover:bg-muted rounded-full transition-micro"
+            title="Go back"
+          >
+            <Icon name="ArrowLeft" size={20} className="text-text-secondary" />
+          </button>
+          <div className="relative flex-1">
+            <Icon 
+              name="Search" 
+              size={20} 
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary z-10" 
+            />
+            <Input
+              type="search"
+              placeholder="Search posts, people, ideas, products..."
+              value={searchQuery}
+              onChange={handleInputChange}
+              onFocus={handleInputFocus}
+              className="pl-10 pr-4 py-2 w-full border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+          </div>
         </div>
       </form>
 

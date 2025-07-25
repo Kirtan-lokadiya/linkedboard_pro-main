@@ -12,6 +12,8 @@ import NotFound from "pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import GoogleSearch from "./pages/GoogleSearch";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 const Routes = () => {
   return (
@@ -29,6 +31,8 @@ const Routes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search" element={<GoogleSearch />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="*" element={<NotFound />} />
       </RouterRoutes>
       </ErrorBoundary>

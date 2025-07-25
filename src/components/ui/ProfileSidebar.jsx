@@ -53,46 +53,46 @@ const ProfileSidebar = ({ className = '' }) => {
       {/* Profile Header */}
       <div className="p-6 border-b border-border">
         <div className="flex items-start space-x-4 mb-4">
-          <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-            <Icon name="User" size={32} color="white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-semibold text-foreground truncate">
-              {profileData.name}
-            </h2>
-            <p className="text-sm text-text-secondary truncate">
-              {profileData.title}
-            </p>
-            <p className="text-xs text-text-secondary truncate">
-              {profileData.company}
-            </p>
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+              <Icon name="User" size={32} color="white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h2 className="text-lg font-semibold text-foreground truncate">
+                {profileData.name}
+              </h2>
+              <p className="text-sm text-text-secondary truncate">
+                {profileData.title}
+              </p>
+              <p className="text-xs text-text-secondary truncate">
+                {profileData.company}
+              </p>
             <div className="flex items-center text-xs text-text-secondary mt-2">
               <Icon name="MapPin" size={12} className="mr-1" />
               <span>{profileData.location}</span>
             </div>
           </div>
         </div>
-        <div className="mb-4">
-          <p className="text-sm text-text-secondary leading-relaxed">
-            {profileData.headline}
-          </p>
-        </div>
-      </div>
-      {/* Recent Activity */}
-      <div className="p-6">
-        <h3 className="text-sm font-semibold text-foreground mb-4">Recent Activity</h3>
-        <div className="space-y-4">
-          {activityFeed.map((activity, index) => (
-            <div key={index} className="flex items-start space-x-3">
-              <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${getColorClass(activity.color)}`}></div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-foreground">{activity.title}</p>
-                <p className="text-xs text-text-secondary">{activity.time}</p>
-              </div>
+            <div className="mb-4">
+              <p className="text-sm text-text-secondary leading-relaxed">
+                {profileData.headline}
+              </p>
             </div>
-          ))}
-        </div>
       </div>
+          {/* Recent Activity */}
+      <div className="p-6">
+            <h3 className="text-sm font-semibold text-foreground mb-4">Recent Activity</h3>
+            <div className="space-y-4">
+              {activityFeed.map((activity, index) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${getColorClass(activity.color)}`}></div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-foreground">{activity.title}</p>
+                    <p className="text-xs text-text-secondary">{activity.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
     </div>
   );
 };

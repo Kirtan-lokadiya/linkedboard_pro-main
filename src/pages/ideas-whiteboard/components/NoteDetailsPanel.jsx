@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
+import { useNavigate } from 'react-router-dom';
 
 const NoteDetailsPanel = ({ 
   note, 
@@ -20,6 +21,7 @@ const NoteDetailsPanel = ({
     category: note?.category || ''
   });
   const [newComment, setNewComment] = useState('');
+  const navigate = useNavigate();
 
   if (!note) return null;
 
@@ -110,6 +112,7 @@ const NoteDetailsPanel = ({
         <div className={`p-4 rounded-lg border-2 ${getColorClasses(note.color)}`}>
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-semibold text-gray-800">{note.title}</h3>
+            <div className="flex items-center space-x-1">
             <Button
               variant="ghost"
               size="icon"
@@ -118,6 +121,16 @@ const NoteDetailsPanel = ({
             >
               <Icon name="Edit2" size={12} />
             </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => navigate(`/search?q=${encodeURIComponent(note.title || '')}`)}
+                className="w-6 h-6"
+                title="Search this idea"
+              >
+                <Icon name="Globe" size={14} />
+              </Button>
+            </div>
           </div>
           <p className="text-sm text-gray-700 mb-3">{note.content}</p>
           <div className="flex items-center justify-between text-xs text-gray-600">
