@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
+import { useAuth } from "../../../context/AuthContext";
 
 const EngagementSection = ({ article, className = '' }) => {
+  const { isAuthenticated, openAuthModal } = useAuth();
   const [reactions, setReactions] = useState({
     like: { count: article.reactions.like, isActive: false },
     love: { count: article.reactions.love, isActive: false },
@@ -20,6 +22,10 @@ const EngagementSection = ({ article, className = '' }) => {
   ];
 
   const handleReaction = (reactionKey) => {
+    if (!isAuthenticated) {
+      openAuthModal();
+      return;
+    }
     setReactions(prev => ({
       ...prev,
       [reactionKey]: {
@@ -78,6 +84,7 @@ const EngagementSection = ({ article, className = '' }) => {
               variant="ghost"
               size="sm"
               onClick={() => setShowReactions(!showReactions)}
+              requireAuth
               onMouseEnter={() => setShowReactions(true)}
               className={`${reactions.like.isActive ? 'text-primary' : 'text-text-secondary'}`}
               iconName="ThumbsUp"
@@ -111,6 +118,7 @@ const EngagementSection = ({ article, className = '' }) => {
           <Button
             variant="ghost"
             size="sm"
+            requireAuth
             iconName="MessageCircle"
             iconPosition="left"
             iconSize={16}
@@ -121,6 +129,7 @@ const EngagementSection = ({ article, className = '' }) => {
           <Button
             variant="ghost"
             size="sm"
+            requireAuth
             iconName="Share2"
             iconPosition="left"
             iconSize={16}
@@ -132,6 +141,7 @@ const EngagementSection = ({ article, className = '' }) => {
         <Button
           variant="ghost"
           size="sm"
+          requireAuth
           iconName="Send"
           iconPosition="left"
           iconSize={16}

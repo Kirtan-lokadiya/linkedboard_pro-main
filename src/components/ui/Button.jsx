@@ -3,6 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { cn } from "../../utils/cn";
 import Icon from '../AppIcon';
+import { useAuth } from "../../context/AuthContext";
 
 const buttonVariants = cva(
     "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -47,9 +48,13 @@ const Button = React.forwardRef(({
     iconSize = null,
     fullWidth = false,
     disabled = false,
+    requireAuth = false,
+    onClick,
     ...props
 }, ref) => {
     const Comp = asChild ? Slot : "button";
+
+    const { isAuthenticated, openAuthModal } = useAuth();
 
     // Icon size mapping based on button size
     const iconSizeMap = {
@@ -87,6 +92,17 @@ const Button = React.forwardRef(({
         );
     };
 
+    // Click handler wrapper
+    const handleClick = (e) => {
+        if (disabled || loading) return;
+        if (requireAuth && !isAuthenticated) {
+            e.preventDefault();
+            openAuthModal();
+            return;
+        }
+        if (onClick) onClick(e);
+    };
+
     return (
         <Comp
             className={cn(
@@ -95,6 +111,7 @@ const Button = React.forwardRef(({
             )}
             ref={ref}
             disabled={disabled || loading}
+            onClick={handleClick}
             {...props}
         >
             {loading && <LoadingSpinner />}

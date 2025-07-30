@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import Icon from '../components/AppIcon';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const { login, loading } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -22,7 +24,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Handle login API call
+    await login(formData.email, formData.password);
   };
 
   const handleGoogleSignIn = async () => {
@@ -109,7 +111,7 @@ const Login = () => {
             </Link>
           </div>
 
-          <Button type="submit" className="w-full" variant="default">
+          <Button type="submit" className="w-full" variant="default" loading={loading}>
             Sign In
           </Button>
         </form>

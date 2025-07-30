@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import Icon from '../components/AppIcon';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
+  const { register, loading } = useAuth();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -29,7 +31,12 @@ const Register = () => {
       alert('Passwords do not match!');
       return;
     }
-    // TODO: Handle registration API call
+    await register({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+    });
   };
 
   const handleGoogleSignUp = async () => {
@@ -144,7 +151,7 @@ const Register = () => {
             </div>
           </div>
 
-          <Button type="submit" className="w-full" variant="default">
+          <Button type="submit" className="w-full" variant="default" loading={loading}>
             Create Account
           </Button>
         </form>
