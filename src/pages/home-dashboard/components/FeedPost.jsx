@@ -3,19 +3,29 @@ import { Link } from 'react-router-dom';
 import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
 import Button from '../../../components/ui/Button';
+import { useAuth } from "../../../context/AuthContext";
 
 const FeedPost = ({ post }) => {
+  const { isAuthenticated, openAuthModal } = useAuth();
   const [isLiked, setIsLiked] = useState(post.isLiked || false);
   const [likeCount, setLikeCount] = useState(post.likes || 0);
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
 
   const handleLike = () => {
+    if (!isAuthenticated) {
+      openAuthModal();
+      return;
+    }
     setIsLiked(!isLiked);
-    setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+    setLikeCount(prev => (isLiked ? prev - 1 : prev + 1));
   };
 
   const handleComment = () => {
+    if (!isAuthenticated) {
+      openAuthModal();
+      return;
+    }
     if (commentText.trim()) {
       console.log('Adding comment:', commentText);
       setCommentText('');
@@ -168,6 +178,7 @@ const FeedPost = ({ post }) => {
           <Button
             variant="ghost"
             onClick={handleLike}
+            requireAuth
             className={`flex-1 ${isLiked ? 'text-primary' : 'text-text-secondary'}`}
             iconName="ThumbsUp"
             iconPosition="left"
@@ -178,6 +189,7 @@ const FeedPost = ({ post }) => {
           <Button
             variant="ghost"
             onClick={() => setShowComments(!showComments)}
+            requireAuth
             className="flex-1 text-text-secondary"
             iconName="MessageCircle"
             iconPosition="left"
@@ -189,6 +201,7 @@ const FeedPost = ({ post }) => {
             variant="ghost"
             className="flex-1 text-text-secondary"
             iconName="Share2"
+            requireAuth
             iconPosition="left"
             iconSize={16}
           >
@@ -198,6 +211,7 @@ const FeedPost = ({ post }) => {
             variant="ghost"
             className="flex-1 text-text-secondary"
             iconName="Send"
+            requireAuth
             iconPosition="left"
             iconSize={16}
           >
@@ -227,6 +241,7 @@ const FeedPost = ({ post }) => {
                   variant="default"
                   size="sm"
                   onClick={handleComment}
+                  requireAuth
                   disabled={!commentText.trim()}
                 >
                   Comment

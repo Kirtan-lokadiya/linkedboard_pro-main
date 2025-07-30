@@ -3,8 +3,10 @@ import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
+import { useAuth } from "../../../context/AuthContext";
 
 const CommentSection = ({ comments: initialComments, className = '' }) => {
+  const { isAuthenticated, openAuthModal } = useAuth();
   const [comments, setComments] = useState(initialComments);
   const [newComment, setNewComment] = useState('');
   const [replyingTo, setReplyingTo] = useState(null);
@@ -12,27 +14,34 @@ const CommentSection = ({ comments: initialComments, className = '' }) => {
   const [sortBy, setSortBy] = useState('newest');
 
   const handleAddComment = () => {
+    if (!isAuthenticated) {
+      openAuthModal();
+      return;
+    }
     if (newComment.trim()) {
       const comment = {
         id: Date.now(),
         author: {
-          name: 'John Doe',
-          avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
-          title: 'Product Manager'
+          name: 'Current User',
+          avatar: '',
+          title: '',
         },
         content: newComment,
         timestamp: 'Just now',
         likes: 0,
+        isLiked: false,
         replies: [],
-        isLiked: false
       };
-      
       setComments([comment, ...comments]);
       setNewComment('');
     }
   };
 
   const handleAddReply = (commentId) => {
+    if (!isAuthenticated) {
+      openAuthModal();
+      return;
+    }
     if (replyText.trim()) {
       const reply = {
         id: Date.now(),
@@ -59,6 +68,10 @@ const CommentSection = ({ comments: initialComments, className = '' }) => {
   };
 
   const handleLikeComment = (commentId, isReply = false, parentId = null) => {
+    if (!isAuthenticated) {
+      openAuthModal();
+      return;
+    }
     if (isReply) {
       setComments(comments.map(comment => 
         comment.id === parentId 
@@ -253,9 +266,11 @@ const CommentSection = ({ comments: initialComments, className = '' }) => {
                 <Icon name="AtSign" size={16} className="cursor-pointer hover:text-foreground" />
               </div>
               <Button
-                onClick={handleAddComment}
-                disabled={!newComment.trim()}
+                variant="default"
                 size="sm"
+                onClick={handleAddComment}
+                requireAuth
+                disabled={!newComment.trim()}
               >
                 Comment
               </Button>
