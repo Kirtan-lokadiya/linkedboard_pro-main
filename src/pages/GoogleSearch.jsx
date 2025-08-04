@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import Icon from '../components/AppIcon';
 
 const GoogleSearch = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
 
   useEffect(() => {
     const handleEsc = (e) => {

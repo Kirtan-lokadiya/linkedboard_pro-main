@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
 import Button from '../../../components/ui/Button';
@@ -112,7 +112,7 @@ const FeedPost = ({ post }) => {
             <div className="bg-muted rounded-lg p-4 mt-3">
               <p className="text-sm text-text-secondary mb-2">{post.excerpt}</p>
               <Link 
-                to={`/blog-detail-view?id=${post.id}&from=home`}
+                href={`/blog-detail-view?id=${post.id}&from=home`}
                 className="text-sm text-primary hover:text-primary/80 font-medium transition-micro"
               >
                 Read more →

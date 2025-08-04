@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import Icon from '../AppIcon';
 import Input from './Input';
 
@@ -9,7 +9,8 @@ const GlobalSearchBar = ({ className = '' }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
   const searchRef = useRef(null);
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
 
   // Handle escape key
   useEffect(() => {

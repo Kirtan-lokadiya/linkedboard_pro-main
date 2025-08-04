@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import Icon from '../AppIcon';
 import Button from './Button';
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const location = useLocation();
+  const router = useRouter();
 
   const profileStats = [
     { label: 'Connections', value: '1,247', icon: 'Users' },

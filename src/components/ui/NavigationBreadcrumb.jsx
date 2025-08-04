@@ -1,18 +1,19 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Icon from '../AppIcon';
 
 const NavigationBreadcrumb = ({ customBreadcrumbs = null, className = '' }) => {
-  const location = useLocation();
+  const router = useRouter();
 
   // Route mapping for breadcrumb generation
   const routeMap = {
-    '/home-dashboard': { label: 'Home', icon: 'Home' },
+    '/': { label: 'Home', icon: 'Home' },
     '/blog-detail-view': { label: 'Blog Post', icon: 'FileText' },
     '/ideas-whiteboard': { label: 'Ideas Whiteboard', icon: 'Lightbulb' },
     '/connection-network-tree': { label: 'Network', icon: 'Users' },
     '/products-showcase': { label: 'Products', icon: 'Package' },
-    '/search-results': { label: 'Search Results', icon: 'Search' }
+    '/search': { label: 'Search Results', icon: 'Search' }
   };
 
   // Generate breadcrumbs from current path
@@ -21,16 +22,16 @@ const NavigationBreadcrumb = ({ customBreadcrumbs = null, className = '' }) => {
       return customBreadcrumbs;
     }
 
-    const pathSegments = location.pathname.split('/').filter(Boolean);
-    const breadcrumbs = [{ label: 'Home', path: '/home-dashboard', icon: 'Home' }];
+    const pathSegments = router.pathname.split('/').filter(Boolean);
+    const breadcrumbs = [{ label: 'Home', path: '/', icon: 'Home' }];
 
     // If we're not on home page, add current page
-    if (location.pathname !== '/home-dashboard') {
-      const currentRoute = routeMap[location.pathname];
+    if (router.pathname !== '/') {
+      const currentRoute = routeMap[router.pathname];
       if (currentRoute) {
         breadcrumbs.push({
           label: currentRoute.label,
-          path: location.pathname,
+          path: router.pathname,
           icon: currentRoute.icon,
           current: true
         });
@@ -40,9 +41,8 @@ const NavigationBreadcrumb = ({ customBreadcrumbs = null, className = '' }) => {
     }
 
     // Handle special cases like blog detail view coming from home
-    if (location.pathname === '/blog-detail-view') {
-      const urlParams = new URLSearchParams(location.search);
-      const fromHome = urlParams.get('from') === 'home';
+    if (router.pathname === '/blog-detail-view') {
+      const fromHome = router.query.from === 'home';
       
       if (fromHome) {
         breadcrumbs[breadcrumbs.length - 1].label = 'Article';
@@ -50,9 +50,8 @@ const NavigationBreadcrumb = ({ customBreadcrumbs = null, className = '' }) => {
     }
 
     // Handle search results with query
-    if (location.pathname === '/search-results') {
-      const urlParams = new URLSearchParams(location.search);
-      const query = urlParams.get('q');
+    if (router.pathname === '/search') {
+      const query = router.query.q;
       
       if (query) {
         breadcrumbs[breadcrumbs.length - 1].label = `Search: "${query}"`;
@@ -71,17 +70,16 @@ const NavigationBreadcrumb = ({ customBreadcrumbs = null, className = '' }) => {
 
   const handleBackNavigation = () => {
     // Smart back navigation
-    if (location.pathname === '/blog-detail-view') {
-      const urlParams = new URLSearchParams(location.search);
-      const fromHome = urlParams.get('from') === 'home';
+    if (router.pathname === '/blog-detail-view') {
+      const fromHome = router.query.from === 'home';
       
       if (fromHome) {
-        window.history.back();
+        router.back();
       } else {
-        window.location.href = '/home-dashboard';
+        router.push('/');
       }
     } else {
-      window.history.back();
+      router.back();
     }
   };
 
@@ -115,7 +113,7 @@ const NavigationBreadcrumb = ({ customBreadcrumbs = null, className = '' }) => {
               </span>
             ) : (
               <Link
-                to={crumb.path}
+                href={crumb.path}
                 className="flex items-center space-x-2 text-text-secondary hover:text-foreground transition-micro"
               >
                 <Icon name={crumb.icon} size={16} />
@@ -127,7 +125,7 @@ const NavigationBreadcrumb = ({ customBreadcrumbs = null, className = '' }) => {
       </ol>
 
       {/* Additional Context Actions */}
-      {location.pathname === '/blog-detail-view' && (
+      {router.pathname === '/blog-detail-view' && (
         <div className="ml-auto flex items-center space-x-2">
           <button
             className="flex items-center space-x-1 px-3 py-1 text-xs text-text-secondary hover:text-foreground hover:bg-muted rounded-md transition-micro"
@@ -146,7 +144,7 @@ const NavigationBreadcrumb = ({ customBreadcrumbs = null, className = '' }) => {
         </div>
       )}
 
-      {location.pathname === '/search-results' && (
+      {router.pathname === '/search' && (
         <div className="ml-auto flex items-center space-x-2">
           <button
             className="flex items-center space-x-1 px-3 py-1 text-xs text-text-secondary hover:text-foreground hover:bg-muted rounded-md transition-micro"

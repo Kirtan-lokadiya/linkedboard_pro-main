@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import Header from '../../components/ui/Header';
 import ProfileSidebar from '../../components/ui/ProfileSidebar';
 import NavigationBreadcrumb from '../../components/ui/NavigationBreadcrumb';
@@ -278,10 +278,10 @@ const ProductsShowcase = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <Helmet>
+        <Head>
           <title>Products Showcase - LinkedBoard Pro</title>
           <meta name="description" content="Discover our comprehensive product portfolio with detailed information and user feedback capabilities." />
-        </Helmet>
+        </Head>
         <Header>
           <button
             className="fixed top-4 right-8 z-50 bg-primary rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-white"
@@ -321,11 +321,11 @@ const ProductsShowcase = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
+      <Head>
         <title>Products Showcase - LinkedBoard Pro</title>
         <meta name="description" content="Discover our comprehensive product portfolio with detailed information and user feedback capabilities." />
         <meta name="keywords" content="products, software, tools, productivity, design, development, analytics" />
-      </Helmet>
+      </Head>
       <Header>
         <button
           className="fixed top-4 right-8 z-50 bg-primary rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-white"
