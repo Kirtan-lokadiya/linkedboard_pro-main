@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const StickyNote = ({ 
   note, 
@@ -17,7 +17,8 @@ const StickyNote = ({
   const [editContent, setEditContent] = useState(note.content);
   const [editTitle, setEditTitle] = useState(note.title);
   const textareaRef = useRef(null);
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
 
   const [{ isDragging }, drag] = useDrag({
     type: 'sticky-note',

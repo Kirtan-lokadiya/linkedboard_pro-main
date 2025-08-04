@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
 
@@ -19,7 +19,7 @@ const RelatedPosts = ({ posts, className = '' }) => {
         {posts.map((post, index) => (
           <Link
             key={index}
-            to={`/blog-detail-view?id=${post.id}`}
+            href={`/blog-detail-view?id=${post.id}`}
             className="block group"
           >
             <article className="flex space-x-3 p-3 rounded-lg hover:bg-muted transition-micro">
@@ -59,7 +59,7 @@ const RelatedPosts = ({ posts, className = '' }) => {
       </div>
 
       <Link
-        to="/home-dashboard"
+                  href="/"
         className="block mt-6 pt-4 border-t border-border"
       >
         <div className="flex items-center justify-center space-x-2 text-sm text-primary hover:text-primary/80 transition-micro">

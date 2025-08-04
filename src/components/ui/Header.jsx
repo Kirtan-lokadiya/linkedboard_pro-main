@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Icon from '../AppIcon';
 import Button from './Button';
 import Input from './Input';
@@ -8,17 +9,17 @@ import ThemeSwitcher from './ThemeSwitcher';
 const Header = () => {
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
 
   const navigationItems = [
-    { label: 'Home', path: '/home-dashboard', icon: 'Home' },
+    { label: 'Home', path: '/', icon: 'Home' },
     { label: 'Ideas', path: '/ideas-whiteboard', icon: 'Lightbulb' },
     { label: 'Network', path: '/connection-network-tree', icon: 'Users' },
     { label: 'Products', path: '/products-showcase', icon: 'Package' },
   ];
 
-  const isActivePath = (path) => location.pathname === path;
+  const isActivePath = (path) => router.pathname === path;
 
   const toggleProfileMenu = () => setShowProfileMenu(!showProfileMenu);
   const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
@@ -38,7 +39,7 @@ const Header = () => {
       <div className="flex items-center justify-between h-16 px-4 lg:px-6">
         {/* Logo */}
         <div className="flex items-center">
-          <Link to="/home-dashboard" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Icon name="Zap" size={20} color="white" />
             </div>
@@ -52,7 +53,7 @@ const Header = () => {
           {navigationItems.map((item) => (
             <Link
               key={item.path}
-              to={item.path}
+              href={item.path}
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-micro ${
                 isActivePath(item.path)
                   ? 'bg-primary text-primary-foreground'
@@ -144,7 +145,7 @@ const Header = () => {
             {navigationItems.map((item) => (
               <Link
                 key={item.path}
-                to={item.path}
+                href={item.path}
                 onClick={() => setShowMobileMenu(false)}
                 className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-micro ${
                   isActivePath(item.path)

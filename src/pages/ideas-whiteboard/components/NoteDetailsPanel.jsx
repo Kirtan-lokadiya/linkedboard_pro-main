@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const NoteDetailsPanel = ({ 
   note, 
@@ -21,7 +21,8 @@ const NoteDetailsPanel = ({
     category: note?.category || ''
   });
   const [newComment, setNewComment] = useState('');
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
 
   if (!note) return null;
 

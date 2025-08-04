@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
 import Button from '../../../components/ui/Button';
@@ -86,7 +86,7 @@ const AuthorCard = ({ author, className = '' }) => {
             {author.recentArticles.slice(0, 3).map((article, index) => (
               <Link
                 key={index}
-                to={`/blog-detail-view?id=${article.id}`}
+                href={`/blog-detail-view?id=${article.id}`}
                 className="block group"
               >
                 <div className="flex items-start space-x-3 p-2 rounded-md hover:bg-muted transition-micro">
@@ -113,7 +113,7 @@ const AuthorCard = ({ author, className = '' }) => {
           </div>
           
           <Link
-            to="/home-dashboard"
+            href="/"
             className="block mt-4 text-center"
           >
             <span className="text-sm text-primary hover:text-primary/80 transition-micro">

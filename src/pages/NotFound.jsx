@@ -1,10 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import Button from 'components/ui/Button';
 import Icon from 'components/AppIcon';
 
 const NotFound = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = router.push;
 
   const handleGoHome = () => {
     navigate('/');

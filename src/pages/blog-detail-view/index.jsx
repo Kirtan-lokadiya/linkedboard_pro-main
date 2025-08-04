@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import Header from '../../components/ui/Header';
 import Sidebar from '../../components/ui/Sidebar';
 import NavigationBreadcrumb from '../../components/ui/NavigationBreadcrumb';
@@ -13,8 +13,8 @@ import CommentSection from './components/CommentSection';
 import ReadingProgress from './components/ReadingProgress';
 
 const BlogDetailView = () => {
-  const [searchParams] = useSearchParams();
-  const articleId = searchParams.get('id') || '1';
+  const router = useRouter();
+  const articleId = router.query.id || '1';
 
   // Mock article data
   const article = {
